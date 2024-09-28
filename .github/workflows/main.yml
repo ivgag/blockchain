@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: ["develop"]
 
+
+    
+
 jobs:  
   check-pr-title:
     name: "PR Title Checker"
