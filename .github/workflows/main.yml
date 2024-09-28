@@ -9,7 +9,7 @@ on:
 jobs:  
   check-pr-title:
     name: "PR Title Checker"
-    if: github.action == 'pull_request'
+    if: ${{ github.action == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
       - name: PR Title Checker
