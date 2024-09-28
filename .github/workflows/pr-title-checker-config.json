@@ -1,0 +1,15 @@
+{
+    "LABEL": {
+      "name": "title needs formatting",
+      "color": "EEEEEE"
+    },
+    "CHECKS": {
+      "prefixes": ["#"],
+      "regexp": "^#\\d+\\s+.+"
+    },
+    "MESSAGES": {
+      "success": "All OK",
+      "failure": "PR title must follow the pattern: `#issue_number Description`.",
+      "notice": ""
+    }
+  }
