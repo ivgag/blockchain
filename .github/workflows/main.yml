@@ -6,15 +6,10 @@ on:
   pull_request:
     branches: ["develop"]
 
-
-    
-
 jobs:  
   check-pr-title:
     name: "PR Title Checker"
-    if: |
-      github.event_name == 'pull_request' && 
-        (github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'edited')
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Debug Event Name
