@@ -1,8 +1,6 @@
 name: "Workflow"
 
 on:
-  pull_request_target:
-    types: [opened, reopened, edited]
   push:
     branches: ["develop"]
   pull_request:
@@ -11,6 +9,9 @@ on:
 jobs:  
   check-pr-title:
     name: "PR Title Checker"
+    if: |
+      github.event_name == 'pull_request' && 
+        (github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'edited')
     runs-on: ubuntu-latest
     steps:
       - name: Debug Event Name
