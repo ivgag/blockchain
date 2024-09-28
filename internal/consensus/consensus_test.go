@@ -43,7 +43,7 @@ func TestAddNewBlock(t *testing.T) {
 		t.Errorf("failed to add block to blockchain: " + result.Error())
 	}
 
-	if result := ValidateBlockChain(bc); result != nil {
+	if result := ValidateBlockChain(&bc); result != nil {
 		t.Errorf("failed to validate blockchain: " + result.Error())
 	}
 }

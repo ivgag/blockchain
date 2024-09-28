@@ -41,7 +41,7 @@ func (c *PoWConsensus) CreateNewBlock(data string) blockchain.Block {
 }
 
 func (c *PoWConsensus) AdjustDifficulty() int {
-	return CalculateNewDifficulty(c.blockchain.Blocks)
+	return CalculateNewDifficulty(c.blockchain.Blocks())
 }
 
 func (c *PoWConsensus) AddNewBlock(block blockchain.Block) error {
