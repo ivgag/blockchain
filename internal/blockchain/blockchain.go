@@ -1,25 +1,58 @@
 package blockchain
 
+import (
+	"errors"
+	"sync"
+)
+
 type Blockchain struct {
-	Blocks     []Block
+	blocks     []Block
 	Difficulty int
+	mutex      sync.Mutex
 }
 
 func NewBlockchain() Blockchain {
 	return Blockchain{
-		Blocks:     []Block{GenesisBlock(2)},
+		blocks:     []Block{GenesisBlock(2)},
 		Difficulty: 2,
+		mutex:      sync.Mutex{},
 	}
 }
 
+func (bc *Blockchain) Blocks() []Block {
+	bc.mutex.Lock()
+	defer bc.mutex.Unlock()
+
+	return bc.blocks
+}
+
 func (bc *Blockchain) AddBlock(block Block) {
-	bc.Blocks = append(bc.Blocks, block)
+	bc.mutex.Lock()
+	defer bc.mutex.Unlock()
+
+	bc.blocks = append(bc.blocks, block)
 }
 
 func (bc *Blockchain) FirstBlock() Block {
-	return bc.Blocks[0]
+	bc.mutex.Lock()
+	defer bc.mutex.Unlock()
+
+	return bc.blocks[0]
 }
 
 func (bc *Blockchain) LastBlock() Block {
-	return bc.Blocks[len(bc.Blocks)-1]
+	bc.mutex.Lock()
+	defer bc.mutex.Unlock()
+
+	return bc.blocks[len(bc.blocks)-1]
+}
+
+func (bc *Blockchain) GetBlock(index int) (Block, error) {
+	bc.mutex.Lock()
+	defer bc.mutex.Unlock()
+
+	if index < 0 || index >= len(bc.blocks) {
+		return Block{}, errors.New("invalid index")
+	}
+	return bc.blocks[index], nil
 }

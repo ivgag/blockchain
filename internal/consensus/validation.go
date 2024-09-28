@@ -6,11 +6,13 @@ import (
 	"strings"
 )
 
-func ValidateBlockChain(blockchain blockchain.Blockchain) error {
+func ValidateBlockChain(blockchain *blockchain.Blockchain) error {
+	var blocks = blockchain.Blocks()
+
 	// skip genesis block
-	for i := 1; i < len(blockchain.Blocks); i++ {
-		block := blockchain.Blocks[i]
-		previousBlock := blockchain.Blocks[i-1]
+	for i := 1; i < len(blocks); i++ {
+		block := blocks[i]
+		previousBlock := blocks[i-1]
 
 		if err := validateBlock(block); err != nil {
 			return err
